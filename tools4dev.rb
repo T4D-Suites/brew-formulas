@@ -7,13 +7,12 @@ class Tools4dev < Formula
     license "MIT-Modern-Variant"
   
     depends_on "zsh"
-    depends_on "jq"
-    depends_on "awscli"
+    depends_on "jq" => :recommended
+    depends_on "awscli" => :optional
   
     # on_system macos: do
       depends_on "coreutils"
     # end
-  
   
     def install
       # ENV.deparallelize  # if your formula fails when building in parallel
