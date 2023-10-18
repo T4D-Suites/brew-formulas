@@ -1,9 +1,9 @@
 class Tools4dev < Formula
     desc "UNIX zsh Library (shell as functions)"
     homepage "https://github.com/T4D-Suites/Tools4Dev"
-    version "7.0.0-rc17"
+    version "7.0.0"
     url "https://github.com/T4D-Suites/Tools4Dev/releases/download/#{version}/tools4dev_#{version}.tar"
-    sha256 "3f2066c9cd69223d7fb99ba7213a63df7c0ebfb3c6eee51af7479a4dfa1e3243"
+    sha256 "d26556d25eb99bc408dd6059dfd3f52f72ccf30549550100044a15ad924796e4"
     license "MIT-Modern-Variant"
   
     depends_on "zsh"
