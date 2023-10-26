@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+
+if [[ "$T4D_ROOT_PATH" == "" ]]; then
+    T4D_ROOT_PATH="$HOME/.tools4dev"
+fi
+
+if [[  -e "$T4D_ROOT_PATH/src-devel" ]]; then
+    cd "$T4D_ROOT_PATH/src-devel"
+else
+    cd "$T4D_ROOT_PATH"
+    git clone git@github.com:T4D-Suites/Tools4Dev.git src-devel
+    cd src-devel
+fi
+
+./t4d link
+
+exit 0
