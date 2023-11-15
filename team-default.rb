@@ -1,6 +1,6 @@
-class Default < Formula
-    desc "Default Global Repository"
-    homepage "https://github.com/Default"
+class TeamDefault < Formula
+    desc "TeamDefault Global Repository"
+    homepage "https://github.com/T4D-Suites/T4D-Team-Default"
     url "file:///dev/null"
     sha256 "b51d039ef1f9eedf1d5143b22e2b9a945bb56fc0acb5d1bc62739fa49fb3e45b"
     version "1.0.1"
