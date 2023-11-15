@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+
+
+if [[ -e " source $HOME/.zshenv" ]]; then
+    source $HOME/.zshenv
+fi
+
+T4D_ROOT_PATH="${ZDOTDIR:-$HOME/.tools4dev}"
+
+if [[ "$(uname -a | grep -Eo 'RELEASE_ARM64' | uniq)" == "RELEASE_ARM64" ]]; then
+    abrew(){
+        arch -arm64 brew $*
+    }
+else
+    abrew(){
+        brew $*
+    }
+fi
+
+abrew update
+abrew reinstall ${1:-tools4dev} ${@:2}
+
+if [[ -e "$T4D_ROOT_PATH/manifest.xml" ]]; then
+    TEAM_PATH="$(dirname $(readlink -f $T4D_ROOT_PATH/manifest.xml))"
+    cd $TEAM_PATH
+    git pull
+fi

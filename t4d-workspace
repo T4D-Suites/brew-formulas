@@ -1,0 +1,93 @@
+#!/bin/bash
+set -e
+
+######################
+# Init
+######################
+if [[ "$1" != "" ]]; then
+    if [[ -w "$1" ]]; then
+        TEAM_ROOT_DIR="$1"
+    else
+        echo "[ERROR] TEAM_ROOT_DIR >$1< is not writable"
+        echo "mkdir -p $1 ?"
+        exit 1
+    fi
+elif [[ -e "$HOME/.tools4dev/.t4denv" ]]; then
+    source "$HOME/.tools4dev/.t4denv"
+fi
+
+DEFAULT_TEAM_ROOT_DIR="$HOME/Git"
+DEFAULT_TEAM_CLONE_URL="git@github.com:T4D-Suites/T4D-Team-Default.git"
+BRANCH_NAME="${2:-develop}"
+TEAM_CLONE_URL="${3:-$DEFAULT_TEAM_CLONE_URL}"
+DEFAULT_TEAM_NAME="${4:-Team-Default}"
+
+
+######################
+# First Blood
+######################
+if [[ "$TEAM_ROOT_DIR" == "" ]] || [[ ! -e "$TEAM_ROOT_DIR" ]]; then
+    echo "Welcome to Initial Setup of ${DEFAULT_TEAM_NAME} Environement !"
+    echo "      Let's go for a ride..."
+
+    echo "Enter workspace where to find or clone ${DEFAULT_TEAM_NAME} workspace ($DEFAULT_TEAM_ROOT_DIR):" && read WORK_ROOT_DIR
+
+    TEAM_ROOT_DIR="$(eval echo "${WORK_ROOT_DIR:-$DEFAULT_TEAM_ROOT_DIR}")"
+
+    if [[ ! -w "$(dirname $TEAM_ROOT_DIR)" ]]; then
+        echo "TEAM_ROOT_DIR >$TEAM_ROOT_DIR< is not writable"
+        exit 1
+    # else
+    #   echo $TEAM_ROOT_DIR
+    elif [[ ! -e "$TEAM_ROOT_DIR" ]]; then
+        echo "Do you want to create $TEAM_ROOT_DIR ?" && read ANSWER
+        mkdir -p $TEAM_ROOT_DIR
+    fi
+
+fi
+
+
+######################
+# Config File .t4denv
+######################
+if [[ -e "$HOME/.tools4dev" ]]; then
+    _teamRoot=""
+    if [[ -e "$HOME/.tools4dev/.t4denv" ]]; then
+        _teamRoot="$(cat "$HOME/.tools4dev/.t4denv" | grep -Eo "TEAM_ROOT_DIR.*" | cut -d '=' -f2 | sed 's|"||g')"
+    fi
+
+    if [[ "$_teamRoot" != "$TEAM_ROOT_DIR" ]]; then
+        cat "$HOME/.tools4dev/.t4denv" | grep -v "TEAM_ROOT_DIR" || true > "$HOME/.tools4dev/.t4denv.tmp"
+        echo "TEAM_ROOT_DIR=\"$TEAM_ROOT_DIR\"" >> "$HOME/.tools4dev/.t4denv.tmp"
+        mv "$HOME/.tools4dev/.t4denv.tmp" "$HOME/.tools4dev/.t4denv" && echo "Configuration saved in \$HOME/.tools4dev/.t4denv"
+    fi
+fi
+
+
+######################
+# Setup Team 
+######################
+cd $TEAM_ROOT_DIR 
+
+if [[ ! -e "$TEAM_ROOT_DIR/${DEFAULT_TEAM_NAME}" ]]; then
+    git clone -b ${BRANCH_NAME} ${TEAM_CLONE_URL} ${DEFAULT_TEAM_NAME}
+fi
+
+if [[ ! -e "$HOME/.tools4dev/team/${DEFAULT_TEAM_NAME}" ]]; then
+    cd ${DEFAULT_TEAM_NAME}
+    t4d setup
+    t4d team -add
+else
+
+    cd $(readlink -f $HOME/.tools4dev/team/${DEFAULT_TEAM_NAME})
+    t4d team ${DEFAULT_TEAM_NAME}
+fi
+
+######################
+# Pre-Launch
+######################
+t4d wks init
+######################
+# Launch
+######################
+t4d start
