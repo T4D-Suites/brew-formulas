@@ -22,8 +22,8 @@ class TeamDefault < Formula
       # https://rubydoc.brew.sh/Formula.html#std_configure_args-instance_method
       system "mkdir -p #{bin}"
       system "git clone git@github.com:T4D-Suites/homebrew-tools4dev.git"
-      system "mv homebrew-formulas/t4d-workspace #{bin}"
-      system "mv homebrew-formulas/t4d-update #{bin}"
+      system "mv homebrew-tools4dev/t4d-workspace #{bin}"
+      system "mv homebrew-tools4dev/t4d-update #{bin}"
     end
 
     test do
