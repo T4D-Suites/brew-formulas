@@ -1,4 +1,4 @@
-class Tools4dev < Formula
+class Tools4devDevel < Formula
     desc "UNIX zsh Library (shell as functions)"
     homepage "https://github.com/T4D-Suites/Tools4Dev"
     url "file:///dev/null"
