@@ -3,7 +3,7 @@ class Tools4devAT710 < Formula
     homepage "https://github.com/T4D-Suites/Tools4Dev"
     version "7.1.0"
     url "https://github.com/T4D-Suites/Tools4Dev/releases/download/#{version}/tools4dev_#{version}.tar"
-    sha256 "e0ad041f06abfa16f946c59c165664640cb8ef4fc12291aa1505f00c2575de14"
+    sha256 "495a5c69c28df686c2e3e762106db90c09f3b366e2760717e188d440bf767a5e"
     license "MIT-Modern-Variant"
   
     depends_on "zsh"
