@@ -1,25 +1,32 @@
-class Tools4devDevel < Formula
+  class Tools4devDevel < Formula
     desc "UNIX zsh Library (shell as functions)"
     homepage "https://github.com/T4D-Suites/Tools4Dev"
-    url "file:///dev/null"
-    sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-    version "0.0.1"
+    version "7.2.0-dev12"
+    url "https://github.com/T4D-Suites/Tools4Dev/releases/download/#{version}/tools4dev_#{version}.tar"
+    sha256 "794ab6283467e2cfaf60709485900720d05d649d0d89d637a3bef31f8a92197c"
     license "MIT-Modern-Variant"
-
-    
-    depends_on "tools4dev"
+  
+    depends_on "zsh"
+    depends_on "jq" => :recommended
+    depends_on "awscli" => :optional
+  
+    # on_system macos: do
+      depends_on "coreutils"
+    # end
   
     def install
       # ENV.deparallelize  # if your formula fails when building in parallel
       # Remove unrecognized options if warned by configure
       # https://rubydoc.brew.sh/Formula.html#std_configure_args-instance_method
+      system "./src/Platforms/brew-install.sh", "--prefix=#{prefix}"
       system "mkdir -p #{bin}"
       system "git clone git@github.com:T4D-Suites/homebrew-tools4dev.git"
       system "mv homebrew-tools4dev/t4d-devel #{bin}"
     end
-
+  
     test do
-      assert_equal "OK", shell_output("echo OK").chomp
+      assert_equal "tools4dev", shell_output("#{bin}/t4d 'echo tools4dev'").chomp
     end
   end
   
+
