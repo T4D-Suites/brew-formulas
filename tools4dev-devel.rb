@@ -18,7 +18,7 @@
       # ENV.deparallelize  # if your formula fails when building in parallel
       # Remove unrecognized options if warned by configure
       # https://rubydoc.brew.sh/Formula.html#std_configure_args-instance_method
-      system "./src/Platforms/brew-install.sh", "--prefix=#{prefix}"
+      system "./src/Platforms/brew-install.sh", "--prefix=#{prefix} --devel"
       system "mkdir -p #{bin}"
       system "git clone git@github.com:T4D-Suites/homebrew-tools4dev.git"
       system "mv homebrew-tools4dev/t4d-devel #{bin}"
