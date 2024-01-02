@@ -18,8 +18,19 @@ else
     }
 fi
 
-abrew update
-abrew reinstall ${1:-tools4dev} ${@:2}
+if [[ -e "$T4D_ROOT_PATH/src/.git" ]]; then
+    _branch="${1:-develop}"
+    _OLDPWD=$PWD
+    CHPWD=1
+    cd "$T4D_ROOT_PATH/src"
+    git checkout $_branch
+    git pull
+    CHPWD=0
+    cd $_OLDPWD &> /dev/null
+else
+    abrew update
+    abrew reinstall ${1:-tools4dev} ${@:2}
+fi
 
 if [[ -e "$T4D_ROOT_PATH/manifest.xml" ]]; then
     TEAM_PATH="$(dirname $(readlink -f $T4D_ROOT_PATH/manifest.xml))"
