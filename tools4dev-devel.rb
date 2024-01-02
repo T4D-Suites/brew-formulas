@@ -1,9 +1,9 @@
   class Tools4devDevel < Formula
     desc "UNIX zsh Library (shell as functions)"
     homepage "https://github.com/T4D-Suites/Tools4Dev"
-    version "7.2.0-dev13"
+    version "7.2.0-dev15"
     url "https://github.com/T4D-Suites/Tools4Dev/releases/download/#{version}/tools4dev_#{version}.tar"
-    sha256 "249f32bd8cdafafd10838de26187cde194953ebd841b042df566c8f0b943744d"
+    sha256 "a8de72d1594a479df04d9ae7ff0935d731a1d7372d2335967987a7fa75a167a6"
     license "MIT-Modern-Variant"
   
     depends_on "zsh"
@@ -18,7 +18,7 @@
       # ENV.deparallelize  # if your formula fails when building in parallel
       # Remove unrecognized options if warned by configure
       # https://rubydoc.brew.sh/Formula.html#std_configure_args-instance_method
-      system "./src/Platforms/brew-install.sh", "--prefix=#{prefix} --devel"
+      system "./src/Platforms/brew-install.sh", "--prefix=#{prefix} --suffix dev"
       system "mkdir -p #{bin}"
       system "git clone git@github.com:T4D-Suites/homebrew-tools4dev.git"
       system "mv homebrew-tools4dev/t4d-devel #{bin}"
