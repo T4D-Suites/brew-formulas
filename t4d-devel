@@ -7,12 +7,14 @@ fi
 
 if [[  -e "$T4D_ROOT_PATH/src-devel" ]]; then
     cd "$T4D_ROOT_PATH/src-devel"
+elif [[ -e "$(brew --prefix)/opt/tools4dev-devel/src" ]]; then
+    cd "$(brew --prefix)/opt/tools4dev-devel/src"
 else
     cd "$T4D_ROOT_PATH"
     git clone git@github.com:T4D-Suites/Tools4Dev.git src-devel
     cd src-devel
 fi
 
-./t4d link
+$PWD/t4d link
 
 exit 0
