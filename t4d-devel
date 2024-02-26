@@ -1,4 +1,23 @@
 #!/bin/bash
+# Generated From $Tools4Dev_PATH/Engine/G4d/templates-project.env
+# v1.8.0
+###### t4d-devel
+#   - Name:
+#       t4d-devel
+###
+#   - Synopsis:
+#       link tools4dev as devel, clone repository if package does not exist on brew.
+###
+#   - Usage:
+#       t4d-devel [-f]
+###
+#   - Note:
+#       <Required>
+#       [Optionnal]
+#       {XXXXXXX}       = Value To Be Changed, if {URL} then replace {URL} with a valid URL
+###
+###### DOCUMENTATION BLOC #####
+########### CODE BLOC #########
 set -e
 
 if [[ "$T4D_ROOT_PATH" == "" ]]; then
@@ -7,7 +26,7 @@ fi
 
 if [[  -e "$T4D_ROOT_PATH/src-devel" ]]; then
     cd "$T4D_ROOT_PATH/src-devel"
-elif [[ -e "$(brew --prefix)/opt/tools4dev-devel/src" ]]; then
+elif [[ -e "$(brew --prefix)/opt/tools4dev-devel/src" ]] && [[ "$1" != "-f" ]]; then
     cd "$(brew --prefix)/opt/tools4dev-devel/src"
 else
     cd "$T4D_ROOT_PATH"
@@ -18,3 +37,4 @@ fi
 $PWD/t4d link
 
 exit 0
+###############################
