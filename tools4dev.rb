@@ -8,6 +8,7 @@ class Tools4dev < Formula
   
     depends_on "zsh"
     depends_on "jq" => :recommended
+    depends_on "yq" => :recommended
     depends_on "awscli" => :optional
   
     # on_system macos: do
