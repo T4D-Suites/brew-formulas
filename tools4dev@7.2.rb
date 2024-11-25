@@ -1,4 +1,4 @@
-class Tools4dev < Formula
+class Tools4devAT72 < Formula
     desc "UNIX zsh Library (shell as functions)"
     homepage "https://github.com/T4D-Suites/Tools4Dev"
     version "7.2.0"
